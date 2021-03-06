@@ -1,0 +1,32 @@
+{{set . "title" .siteTitle }}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row">
+        <div class="col-xl-6">
+                <p>
+                    <strong>{{.mail}}</strong>
+                </p>
+            <form action="{{url "App.SaveUser"}}" method="POST">
+                <input type="hidden" name="user.Mail" value="{{.mail}}">
+                {{with $field := field "user.Login" .}}
+                    <p class="{{$field.ErrorClass}}">
+                        <strong>Login:</strong>
+                        <input type="text" name="{{$field.Name}}" size="16" value="{{$field.Flash}}"> *
+                        <span class="error">{{$field.Error}}</span>
+                    </p>
+                {{end}}
+                {{with $field := field "password" .}}
+                    <p class="{{$field.ErrorClass}}">
+                        <strong>Password:</strong>
+                        <input type="password" name="{{$field.Name}}" size="16" value="{{$field.Flash}}"> *
+                        <span class="error">{{$field.Error}}</span>
+                    </p>
+                {{end}}
+                <p class="buttons">
+                    <input type="submit" value="Register"> <a href="{{url "App.Index"}}">Cancel</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{{template "footer.html" .}}
