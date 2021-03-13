@@ -3,18 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-6">
-            <form action="{{url "App.Register"}}" method="POST">
-                {{with $field := field "mail" .}}
-                    <p class="{{$field.ErrorClass}}">
-                        <strong>Mail:</strong>
-                        <input type="text" name="{{$field.Name}}" size="16" value="{{$field.Flash}}">
-                        <span class="error">{{$field.Error}}</span>
-                    </p>
-                {{end}}
-                <p class="buttons">
-                    <input type="submit" value="Zacznij">
-                </p>
-            </form>
+            <p>Welcome</p>
         </div>
     </div>
 </div>

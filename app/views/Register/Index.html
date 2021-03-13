@@ -3,15 +3,18 @@
 <div class="container">
     <div class="row">
         <div class="col-xl-6">
-                <p>
-                    <strong>{{.mail}}</strong>
-                </p>
-            <form action="{{url "App.SaveUser"}}" method="POST">
-                <input type="hidden" name="user.Mail" value="{{.mail}}">
-                {{with $field := field "user.Login" .}}
+            <form action="{{url "Register.Register"}}" method="POST">
+                {{with $field := field "mail" .}}
                     <p class="{{$field.ErrorClass}}">
-                        <strong>Login:</strong>
-                        <input type="text" name="{{$field.Name}}" size="16" value="{{$field.Flash}}"> *
+                        <strong>Mail:</strong>
+                        <input type="text" name="{{$field.Name}}" value="{{$field.Value}}" readonly>
+                        <span class="error">{{$field.Error}}</span>
+                    </p>
+                {{end}}
+                {{with $field := field "name" .}}
+                    <p class="{{$field.ErrorClass}}">
+                        <strong>Name:</strong>
+                        <input type="text" name="{{$field.Name}}" value="{{$field.Value}}">
                         <span class="error">{{$field.Error}}</span>
                     </p>
                 {{end}}

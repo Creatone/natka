@@ -7,15 +7,17 @@ module:testrunner
 # module:jobs
 
 
-GET     /admin                                  Admin.Index
 GET     /                                       App.Index
-# TODO: Consider changing it to redirection or smth else.
-GET     /register                               App.Index
-GET     /login                                  App.EnterPassword
-POST    /login                                  App.Login
-POST    /register                               App.Register
-POST    /saveuser                               App.SaveUser
-POST    /logout                                 App.Logout
+
+GET     /checkmail                              Login.Index
+POST    /checkmail                              Login.CheckMail
+GET     /login                                  Login.EnterPassword
+POST    /login                                  Login.Login
+POST    /logout                                 Login.Logout
+GET     /register                               Register.Index
+POST    /register                               Register.Register
+
+GET /admin                                      Admin.Index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -18,9 +18,9 @@
         <p>Logo</p>
       </div>
 
-      {{if (session "mail" .)}}
+      {{if (session "user" .)}}
       <div class="col-1">
-        <form action="{{url "App.Logout"}}" method="post">
+        <form action="{{url "Login.Logout"}}" method="post">
           <input type="submit" value="Logout">
         </form>
       </div>

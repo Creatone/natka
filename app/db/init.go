@@ -82,18 +82,18 @@ func CheckMail(mail string) (bool, error) {
 	return true, nil
 }
 
-func Login(mail, password string) (bool, error) {
+func Login(mail, password string) (*models.User, error) {
 	user, err := GetUser(mail)
 	if err != nil {
-		return false, err
+		return nil, err
 	}
 	if user != nil {
 		err = bcrypt.CompareHashAndPassword(user.Password, []byte(password))
 		if err != nil {
-			return false, err
+			return nil, err
 		}
-		return true, nil
+		return user, nil
 	}
 
-	return false, nil
+	return nil, nil
 }

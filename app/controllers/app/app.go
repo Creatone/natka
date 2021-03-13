@@ -2,7 +2,8 @@ package app
 
 import (
 	"github.com/revel/revel"
-	"natka/app/db"
+	"natka/app/routes"
+
 	"natka/app/models"
 )
 
@@ -11,28 +12,10 @@ type App struct {
 }
 
 func (c App) connected() *models.User {
-
-	if c.ViewArgs["fulluser"] != nil {
-		return c.ViewArgs["fulluser"].(*models.User)
-	}
-
-	if mail, ok := c.Session["mail"]; ok {
-		return c.getUser(mail.(string))
-	}
-
-	return nil
-}
-
-func (c App) getUser(mail string) *models.User {
 	user := &models.User{}
-	_, err := c.Session.GetInto("fulluser", user, false)
-	if user.Mail == mail {
-		return user
-	}
-
-	user, err = db.GetUser(mail)
+	_, err := c.Session.GetInto("user", user, true)
 	if err != nil {
-		c.Log.Errorf("failed to authorize user: %v", err)
+		return nil
 	}
 
 	return user
@@ -43,7 +26,8 @@ func (c App) Index() revel.Result {
 
 	if user := c.connected(); user != nil {
 		siteTitle += " " + user.Mail
+		return c.Render(siteTitle)
 	}
 
-	return c.Render(siteTitle)
+	return c.Redirect(routes.Login.Index())
 }
