@@ -1,32 +1,30 @@
 {{set . "title" .siteTitle }}
 {{template "header.html" .}}
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-xl-6">
             <form action="{{url "Register.Register"}}" method="POST">
                 {{with $field := field "mail" .}}
-                    <p class="{{$field.ErrorClass}}">
-                        <strong>Mail:</strong>
-                        <input type="text" name="{{$field.Name}}" value="{{$field.Value}}" readonly>
-                        <span class="error">{{$field.Error}}</span>
-                    </p>
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">Email:</label>
+                        <input type="email" class="form-control" name="{{$field.Name}}" value="{{$field.Value}}" readonly>
+                    </div>
                 {{end}}
                 {{with $field := field "name" .}}
-                    <p class="{{$field.ErrorClass}}">
-                        <strong>Name:</strong>
-                        <input type="text" name="{{$field.Name}}" value="{{$field.Value}}">
-                        <span class="error">{{$field.Error}}</span>
-                    </p>
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">Name:</label>
+                        <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Value}}" placeholder="Enter your name">
+                    </div>
                 {{end}}
                 {{with $field := field "password" .}}
-                    <p class="{{$field.ErrorClass}}">
-                        <strong>Password:</strong>
-                        <input type="password" name="{{$field.Name}}" size="16" value="{{$field.Flash}}"> *
-                        <span class="error">{{$field.Error}}</span>
-                    </p>
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">Password:</label>
+                        <input type="password" class="form-control" name="{{$field.Name}}" value="{{$field.Value}}" placeholder="Enter password">
+                    </div>
                 {{end}}
                 <p class="buttons">
-                    <input type="submit" value="Register"> <a href="{{url "App.Index"}}">Cancel</a>
+                    <input type="submit" class="btn btn-primary" value="Register">
+                    <a href="{{url "App.Index"}}" class="btn btn-secondary">Cancel</a>
                 </p>
             </form>
         </div>

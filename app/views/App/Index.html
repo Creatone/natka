@@ -1,9 +1,11 @@
 {{set . "title" .siteTitle }}
 {{template "header.html" .}}
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-xl-6">
-            <p>Welcome</p>
+        {{with $field := field "user.Name" .}}
+            <p>Welcome {{$field.Value}}</p>
+        {{end}}
         </div>
     </div>
 </div>

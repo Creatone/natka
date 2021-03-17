@@ -26,7 +26,7 @@ func (c App) Index() revel.Result {
 
 	if user := c.connected(); user != nil {
 		siteTitle += " " + user.Mail
-		return c.Render(siteTitle)
+		return c.Render(user)
 	}
 
 	return c.Redirect(routes.Login.Index())
