@@ -9,8 +9,5 @@ type User struct {
 	Name     string              `json:"name" bson:"name"`
 	Mail     string              `json:"mail" bson:"mail"`
 	Password []byte              `json:"password" bson:"password"`
-}
-
-func (u *User) String() string {
-	return u.Name
+	Admin    bool                `json:"admin" bson:"admin"`
 }

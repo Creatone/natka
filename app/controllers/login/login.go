@@ -8,6 +8,8 @@ import (
 	"natka/app/db"
 )
 
+var sessionKey = "user"
+
 type Login struct {
 	*revel.Controller
 }
@@ -28,7 +30,7 @@ func (c Login) CheckMail(mail string) revel.Result {
 
 	isMail, err := db.CheckMail(mail)
 	if err != nil {
-		return c.RenderError(err)
+		return c.Redirect(routes.App.Index())
 	}
 
 	if isMail {
@@ -45,7 +47,7 @@ func (c Login) Login(mail, password string) revel.Result {
 	}
 	if user != nil {
 		c.Session.SetDefaultExpiration()
-		err := c.Session.Set("user", user)
+		err := c.Session.Set(sessionKey, user)
 		if err != nil {
 			return c.RenderError(err)
 		}
@@ -56,7 +58,7 @@ func (c Login) Login(mail, password string) revel.Result {
 }
 
 func (c Login) Logout() revel.Result {
-	c.Session.Del("user")
+	c.Session.Del(sessionKey)
 
 	return c.Redirect(routes.App.Index())
 }

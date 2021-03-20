@@ -12,18 +12,33 @@
     {{end}}
   </head>
   <body>
-  <div class="container-fluid">
-    <div class="row justify-content-between">
-      <div class="col-1">
-        <p>Logo</p>
-      </div>
-
-      {{if (session "user" .)}}
-      <div class="col-1">
-        <form action="{{url "Login.Logout"}}" method="post">
-          <input type="submit" value="Logout" class="btn btn-secondary">
-        </form>
-      </div>
-      {{end}}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{url "App.Index"}}">Natka</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{url "App.Index"}}">Home</a>
+        </li>
+        {{if (session "user" .)}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        {{end}}
+      </ul>
     </div>
-  </div>
+    {{if (session "user" .)}}
+    <form class="form-inline my-1 my-lg-1" action="{{url "Login.Logout"}}" method="post">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+    </form>
+    {{end}}
+  </nav>
