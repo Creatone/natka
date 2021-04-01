@@ -3,9 +3,9 @@ package login
 import (
 	"fmt"
 	"github.com/revel/revel"
-	"natka/app/routes"
 
 	"natka/app/db"
+	"natka/app/routes"
 )
 
 var sessionKey = "user"

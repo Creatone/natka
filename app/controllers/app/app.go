@@ -2,9 +2,10 @@ package app
 
 import (
 	"github.com/revel/revel"
-	"natka/app/routes"
 
+	"natka/app/db"
 	"natka/app/models"
+	"natka/app/routes"
 )
 
 type App struct {
@@ -26,7 +27,8 @@ func (c App) Index() revel.Result {
 
 	if user := c.connected(); user != nil {
 		siteTitle += " " + user.Mail
-		return c.Render(user)
+		diets, _ := db.GetDiets()
+		return c.Render(user, diets)
 	}
 
 	return c.Redirect(routes.Login.Index())

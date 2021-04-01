@@ -11,7 +11,6 @@ import (
 
 const (
 	databaseName      = "natka"
-	userCollection    = "users"
 	uri               = "mongodb://root:example@localhost:27017"
 	connectionTimeout = time.Second * 10
 )

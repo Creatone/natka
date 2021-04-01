@@ -12,6 +12,8 @@ import (
 	"natka/app/models"
 )
 
+const userCollection = "users"
+
 func InsertUser(user models.User) error {
 	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
 

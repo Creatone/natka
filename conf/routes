@@ -18,6 +18,8 @@ GET     /register                               Register.Index
 POST    /register                               Register.Register
 
 GET     /admin                                  Admin.Index
+GET     /admin/diets                            Admin.IndexDiet
+POST    /admin/diets                            Admin.InsertDiet
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

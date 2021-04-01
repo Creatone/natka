@@ -2,7 +2,9 @@ package register
 
 import (
 	"fmt"
+
 	"github.com/revel/revel"
+
 	"golang.org/x/crypto/bcrypt"
 
 	"natka/app/db"
