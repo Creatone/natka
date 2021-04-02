@@ -5,9 +5,6 @@ import (
 	"errors"
 
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-
-	"golang.org/x/crypto/bcrypt"
 
 	"natka/app/models"
 )
@@ -49,32 +46,4 @@ func GetUser(mail string) (*models.User, error) {
 	}
 
 	return &user, nil
-}
-
-func CheckMail(mail string) (bool, error) {
-	_, err := GetUser(mail)
-	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			return false, nil
-		}
-		return false, err
-	}
-
-	return true, nil
-}
-
-func Login(mail, password string) (*models.User, error) {
-	user, err := GetUser(mail)
-	if err != nil {
-		return nil, err
-	}
-	if user != nil {
-		err = bcrypt.CompareHashAndPassword(user.Password, []byte(password))
-		if err != nil {
-			return nil, err
-		}
-		return user, nil
-	}
-
-	return nil, nil
 }
