@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -26,4 +27,59 @@ func init() {
 	if err != nil {
 		fmt.Printf("%v", err)
 	}
+}
+
+func insert(collectionName string, document interface{}) error {
+	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
+
+	db := client.Database(databaseName)
+	col := db.Collection(collectionName)
+	if col == nil {
+		return errors.New("nil collection")
+	}
+
+	_, err := col.InsertOne(ctx, &document)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func get(collectionName string, filter interface{}, document interface{}) error {
+	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
+
+	db := client.Database(databaseName)
+	col := db.Collection(collectionName)
+
+	result := col.FindOne(ctx, filter)
+	if result.Err() != nil {
+		return result.Err()
+	}
+
+	err := result.Decode(document)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func getAll(collectionName string, filter interface{}, document interface{}) error {
+	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
+
+	db := client.Database(databaseName)
+	col := db.Collection(collectionName)
+
+	result, err := col.Find(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	err = result.All(ctx, document)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
