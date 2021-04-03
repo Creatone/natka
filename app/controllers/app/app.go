@@ -33,3 +33,7 @@ func (c App) Index() revel.Result {
 
 	return c.Redirect(routes.Login.Index())
 }
+
+func (c App) Calculator() revel.Result {
+	return c.Render()
+}

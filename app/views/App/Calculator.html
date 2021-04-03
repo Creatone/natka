@@ -1,0 +1,66 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-8">
+            <h3>Zapotrzebowanie kaloryczne</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Podstawowe informacje</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="gender">Płeć</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="women">Kobieta</option>
+                                <option value="men">Mężczyzna</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="age">Wiek</label>
+                            <input type="number" id="age" name="age" min="5" max="110" value="30" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="height">Wzrost [cm]</label>
+                            <input type="number" id="height" name="height" min="100" max="230" value="165" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="weight">Aktualna masa ciała [kg]</label>
+                            <input type="number" id="weight" name="weight" min="10" max="200" value="80" class="form-control">
+                        </div>
+                        <div class="form-group col-md-12">
+                           <label for="activity">Stopień aktywności fizycznej (PAL)</label>
+                            <select name="activity" id="activity" class="form-control">
+                                <option value="0">Pacjent leżacy w łóżku, bardzo niska aktywność</option>
+                                <option value="1">Praca siedząca, minimalna aktywność w ciągu miesiąca</option>
+                                <option value="2">Praca siedząca, średnia aktywność, lekkie treningi 3x w tygodniu</option>
+                                <option value="3">Sporo ruchu w ciągu dnia, lekkie treningi</option>
+                                <option value="4">Sporo ruchu w ciągu dnia, ciężkie regularne treningi</option>
+                                <option value="5">Praca fizyczna, dużo ruchu po pracy</option>
+                                <option value="6">Praca fizyczna, lekkie treningi</option>
+                                <option value="7">Praca fizyczna, ciężkie treningi</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="goal">Cel diety</label>
+                            <select name="goal" id="goal" class="form-control">
+                                <option value="0">Redukcja masy ciała</option>
+                                <option value="1">Utrzymanie masy ciała</option>
+                                <option value="2">Zwiększenie masy ciała</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-success my-2 my-sm-0" id="kcal-btn" onclick="calculate()">Przelicz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center" style="margin-top: 2rem">
+        <div class="col-8">
+            <div id="score"></div>
+        </div>
+    </div>
+</div>
+{{append . "moreScripts" "js/kcal.js"}}
+{{template "footer.html" .}}

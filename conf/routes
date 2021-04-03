@@ -8,6 +8,7 @@ module:testrunner
 
 
 GET     /                                       App.Index
+GET     /calculator                             App.Calculator
 
 GET     /checkmail                              Login.Index
 POST    /checkmail                              Login.CheckMail
