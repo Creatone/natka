@@ -6,16 +6,16 @@ import (
 	"natka/app/models"
 )
 
-const userCollection = "users"
+const usersCollection = "users"
 
 func InsertUser(user models.User) error {
-	return insert(userCollection, user)
+	return insert(usersCollection, user)
 }
 
 func GetUser(mail string) (*models.User, error) {
 	user := models.User{}
 
-	err := get(userCollection, bson.D{{"mail", mail}}, &user)
+	err := get(usersCollection, bson.D{{"mail", mail}}, &user)
 	if err != nil {
 		return nil, err
 	}

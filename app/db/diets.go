@@ -6,16 +6,16 @@ import (
 	"natka/app/models"
 )
 
-const dietCollection = "diets"
+const dietsCollection = "diets"
 
 func InsertDiet(diet models.Diet) error {
-	return insert(dietCollection, diet)
+	return insert(dietsCollection, diet)
 }
 
 func GetDiets() ([]models.Diet, error) {
 	var diets []models.Diet
 
-	err := getAll(dietCollection, bson.D{}, &diets)
+	err := getAll(dietsCollection, bson.D{}, &diets)
 	if err != nil {
 		return nil, err
 	}
