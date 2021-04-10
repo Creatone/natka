@@ -3,8 +3,8 @@ package admin
 import (
 	"github.com/revel/revel"
 
+	"natka/app/controllers/utils"
 	"natka/app/db"
-	"natka/app/models"
 	"natka/app/routes"
 )
 
@@ -12,22 +12,8 @@ type Admin struct {
 	*revel.Controller
 }
 
-func (c Admin) connected() *models.User {
-	user := &models.User{}
-	_, err := c.Session.GetInto("user", user, true)
-	if err != nil {
-		return nil
-	}
-
-	if user.Admin {
-		return user
-	}
-
-	return nil
-}
-
 func (c Admin) Index() revel.Result {
-	if user := c.connected(); user != nil {
+	if user := utils.IsConnected(c.Session); user != nil && user.Admin {
 		diets, err := db.GetDiets()
 		if err != nil {
 			return c.RenderError(err)
