@@ -22,3 +22,8 @@ func GetUser(mail string) (*models.User, error) {
 
 	return &user, nil
 }
+
+func EditUser(user models.User) error {
+	return edit(usersCollection, bson.D{{"_id", user.ID}},
+		bson.D{{"$set", bson.D{{"name", user.Name}}}})
+}

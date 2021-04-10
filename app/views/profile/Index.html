@@ -1,0 +1,30 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 20px">
+        <div class="col-xl-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle img-thumbnail border-0" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            <h3 class="text-center" style="margin-top: 10px;">{{.user.Name}}</h3>
+        </div>
+    </div>
+    <h3>Diets</h3>
+    <div class="row">
+        {{range .diets}}
+            <div class="col-xl-4 diet-box">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{.Name}}</h5>
+                        <p class="card-text">{{.Description}}</p>
+                        <a href="#" class="btn btn-primary">Buy</a>
+                    </div>
+                </div>
+            </div>
+        {{end}}
+        </div>
+    </div>
+</div>
+{{template "footer.html" .}}

@@ -9,6 +9,9 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /calculator                             App.Calculator
+GET     /profile                                Profile.Index
+GET     /profile/edit                           Profile.Edit
+POST    /profile/edit/apply                     Profile.ApplyEdit
 
 GET     /checkmail                              Login.Index
 POST    /checkmail                              Login.CheckMail
