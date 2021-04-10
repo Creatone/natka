@@ -2,12 +2,15 @@ package login
 
 import (
 	"fmt"
+
 	"github.com/revel/revel"
+
 	"go.mongodb.org/mongo-driver/mongo"
+
 	"golang.org/x/crypto/bcrypt"
-	"natka/app/models"
 
 	"natka/app/db"
+	"natka/app/models"
 	"natka/app/routes"
 )
 
