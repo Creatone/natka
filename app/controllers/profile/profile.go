@@ -59,7 +59,7 @@ func (c Profile) ApplyEdit(user models.User, avatar []byte) revel.Result {
 			image := models.Image{Data: avatar}
 			if sessionUser.Avatar == nil {
 				id, err := db.InsertImage(image)
-				var another primitive.ObjectID = id.(primitive.ObjectID)
+				var another = id.(primitive.ObjectID)
 				sessionUser.Avatar = &another
 				if err != nil {
 					return c.RenderError(err)
