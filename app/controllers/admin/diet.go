@@ -18,7 +18,7 @@ func (c Admin) InsertDiet(name string, description string) revel.Result {
 		Description: description,
 	}
 
-	err := db.InsertDiet(diet)
+	_, err := db.InsertDiet(diet)
 	if err != nil {
 		return c.RenderError(err)
 	}

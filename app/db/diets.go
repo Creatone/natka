@@ -8,7 +8,7 @@ import (
 
 const dietsCollection = "diets"
 
-func InsertDiet(diet models.Diet) error {
+func InsertDiet(diet models.Diet) (interface{}, error) {
 	return insert(dietsCollection, diet)
 }
 

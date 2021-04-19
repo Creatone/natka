@@ -10,4 +10,5 @@ type User struct {
 	Mail     string              `json:"mail" bson:"mail"`
 	Password []byte              `json:"password" bson:"password"`
 	Admin    bool                `json:"admin" bson:"admin"`
+	Avatar   *primitive.ObjectID `json:"avatar_id" bson:"avatar_id"`
 }

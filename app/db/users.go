@@ -2,13 +2,12 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
-
 	"natka/app/models"
 )
 
 const usersCollection = "users"
 
-func InsertUser(user models.User) error {
+func InsertUser(user models.User) (interface{}, error) {
 	return insert(usersCollection, user)
 }
 
@@ -25,5 +24,7 @@ func GetUser(mail string) (*models.User, error) {
 
 func EditUser(user models.User) error {
 	return edit(usersCollection, bson.D{{"_id", user.ID}},
-		bson.D{{"$set", bson.D{{"name", user.Name}}}})
+		bson.D{{"$set", bson.D{
+			{"name", user.Name},
+			{"avatar", user.Avatar}}}})
 }

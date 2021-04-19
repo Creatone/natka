@@ -29,21 +29,21 @@ func init() {
 	}
 }
 
-func insert(collectionName string, document interface{}) error {
+func insert(collectionName string, document interface{}) (interface{}, error) {
 	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
 
 	db := client.Database(databaseName)
 	col := db.Collection(collectionName)
 	if col == nil {
-		return errors.New("nil collection")
+		return nil, errors.New("nil collection")
 	}
 
-	_, err := col.InsertOne(ctx, &document)
+	result, err := col.InsertOne(ctx, &document)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return result.InsertedID, nil
 }
 
 func edit(collectionName string, filter interface{}, document interface{}) error {

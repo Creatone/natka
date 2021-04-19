@@ -33,7 +33,7 @@ func (c Register) Register(mail, name, password string) revel.Result {
 	if err != nil {
 		c.Log.Errorf("cannot encrypt %q password: %v", user.Name, err)
 	} else {
-		err = db.InsertUser(user)
+		_, err = db.InsertUser(user)
 		if err != nil {
 			return c.RenderError(fmt.Errorf("cannot insert user: %v", err))
 		}
