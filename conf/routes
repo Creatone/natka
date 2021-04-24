@@ -27,6 +27,8 @@ POST    /admin/diets                            Admin.InsertDiet
 
 GET     /basket                                 Basket.Basket
 
+GET     /articles                               Articles.Articles
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
