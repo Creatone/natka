@@ -5,9 +5,10 @@
         {{range .articles}}
             <div class="col-xl-4 diet-box">
                 <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{.Name}}</h5>
-                        {{raw .Description}}
+                        {{.Description}}
                     </div>
                 </div>
             </div>

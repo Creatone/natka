@@ -1,8 +1,11 @@
 package articles
 
 import (
+	"fmt"
+
 	"github.com/revel/revel"
 
+	"natka/app/controllers/utils"
 	"natka/app/db"
 	"natka/app/models"
 	"natka/app/routes"
@@ -25,10 +28,20 @@ func (c *Articles) Add() revel.Result {
 	return c.Render()
 }
 
-func (c *Articles) Insert(name string, description string) revel.Result {
+func (c *Articles) Image() revel.Result {
+	if user := utils.IsConnected(c.Session); user != nil && user.Admin {
+		data := make(map[string]interface{})
+		data["location"] = "/public/img/diet.jpg"
+		return c.RenderJSON(data)
+	}
+	return c.RenderError(fmt.Errorf("Not an admin!"))
+}
+
+func (c *Articles) Insert(name string, description string, text string) revel.Result {
 	article := models.Article{
 		Name:        name,
 		Description: description,
+		Text:        text,
 	}
 
 	_, err := db.InsertArticle(article)
