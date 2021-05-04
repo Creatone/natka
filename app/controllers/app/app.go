@@ -5,7 +5,6 @@ import (
 
 	"natka/app/controllers/utils"
 	"natka/app/db"
-	"natka/app/routes"
 )
 
 type App struct {
@@ -15,13 +14,11 @@ type App struct {
 func (c App) Index() revel.Result {
 	siteTitle := "Dietetyk Natalia Danio"
 
-	if user := utils.IsConnected(c.Session); user != nil {
-		siteTitle += " " + user.Mail
-		diets, _ := db.GetDiets()
-		return c.Render(user, diets)
-	}
+	user := utils.IsConnected(c.Session)
 
-	return c.Redirect(routes.Login.Index())
+	siteTitle += " " + user.Mail
+	diets, _ := db.GetDiets()
+	return c.Render(user, diets)
 }
 
 func (c App) Calculator() revel.Result {
