@@ -28,6 +28,8 @@ POST    /admin/diets                            Admin.InsertDiet
 GET     /basket                                 Basket.Basket
 
 GET     /articles                               Articles.Articles
+GET     /articles/add                           Articles.Add
+POST    /articles/insert                        Articles.Insert
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

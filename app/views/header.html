@@ -39,6 +39,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           {{if (session "user.Admin" .)}}
+            <a class="dropdown-item" href="{{url "Articles.Add"}}">Add article</a>
             <a class="dropdown-item" href="{{url "Admin.IndexDiet"}}">Add diet</a>
             <div class="dropdown-divider"></div>
           {{end}}

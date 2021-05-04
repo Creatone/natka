@@ -1,6 +1,17 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 <div class="container">
-    <h3>Show articles</h3>
+    <div class="row justify-content-md-center">
+        {{range .articles}}
+            <div class="col-xl-4 diet-box">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{.Name}}</h5>
+                        {{raw .Description}}
+                    </div>
+                </div>
+            </div>
+        {{end}}
+    </div>
 </div>
 {{template "footer.html" .}}

@@ -1,0 +1,69 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-xl-8">
+            <h3>Add new article</h3>
+            <form action="{{url "Articles.Insert"}}" method="POST">
+                {{with $field := field "name" .}}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="{{$field.Name}}" placeholder="Enter title" value="{{$field.Value}}">
+                    </div>
+                {{end}}
+                {{with $field := field "description" .}}
+                    <div class="form-group">
+                        <div id="editorjs" class="border border-light"></div>
+                        <input id="output" name="{{$field.Name}}" type="hidden">
+                    </div>
+                {{end}}
+                <button id="save-button" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.0.3/build/edjsHTML.js"></script>
+<script>
+
+    class ArticleEditor {
+        render() {
+            return document.createElement('input')
+        }
+
+        save(blockContent){
+            return {
+                url: blockContent.value
+            }
+        }
+
+        static get toolbox() {
+            return {
+                title: 'Image',
+                icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>'
+            };
+        }
+
+    }
+
+    const editor = new EditorJS({
+        holder: 'editorjs',
+        inlineToolbar: true,
+        tools: {
+            header: Header,
+            image: ArticleEditor
+        },
+        placeholder: 'Let`s write an awesome story!'
+    });
+
+    const saveButton = document.getElementById('save-button');
+    const output = document.getElementById('output');
+    const edjsParser = edjsHTML();
+
+    saveButton.addEventListener('click', () => {
+        editor.save().then( savedData => {
+            output.setAttribute('value', edjsParser.parse(savedData))
+        })
+    })
+</script>
+{{template "footer.html" .}}
