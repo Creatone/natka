@@ -33,6 +33,7 @@ POST    /articles/insert                        Articles.Insert
 POST    /articles/image                         Articles.Image
 GET     /articles/edit/:id                      Articles.Edit
 POST    /articles/edit/apply                    Articles.EditApply
+GET     /articles/show/:id                      Articles.Show
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

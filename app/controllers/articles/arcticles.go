@@ -78,3 +78,17 @@ func (c *Articles) EditApply(article models.Article) revel.Result {
 
 	return c.Redirect(routes.Articles.Articles())
 }
+
+func (c *Articles) Show(id string) revel.Result {
+	articleID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	article, err := db.GetArticle(&articleID)
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	return c.Render(article)
+}
