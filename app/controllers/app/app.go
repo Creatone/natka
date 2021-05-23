@@ -16,9 +16,8 @@ func (c App) Index() revel.Result {
 
 	user := utils.IsConnected(c.Session)
 
-	siteTitle += " " + user.Mail
 	diets, _ := db.GetDiets()
-	return c.Render(user, diets)
+	return c.Render(siteTitle, user, diets)
 }
 
 func (c App) Calculator() revel.Result {
