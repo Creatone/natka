@@ -5,6 +5,8 @@ import (
 
 	"github.com/revel/revel"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	"natka/app/controllers/utils"
 	"natka/app/db"
 	"natka/app/models"
@@ -52,4 +54,27 @@ func (c *Articles) Insert(name string, description string, text string) revel.Re
 	}
 
 	return c.Redirect(routes.Articles.Add())
+}
+
+func (c *Articles) Edit(id string) revel.Result {
+	articleID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	article, err := db.GetArticle(&articleID)
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	return c.Render(article)
+}
+
+func (c *Articles) EditApply(article models.Article) revel.Result {
+	err := db.EditArticle(article)
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	return c.Redirect(routes.Articles.Articles())
 }

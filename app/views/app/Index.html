@@ -15,17 +15,32 @@
                 </div>
             </div>
         {{end}}
-        {{range .diets}}
-            <div class="col-xl-4 diet-box">
-                <div class="card h-100">
-                    <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{.Name}}</h5>
-                        <p class="card-text">{{.Description}}</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
+        {{if (session "user.Admin" .)}}
+            {{range .diets}}
+                <div class="col-xl-4 diet-box">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{.Name}}</h5>
+                            <p class="card-text">{{.Description}}</p>
+                            <a href="#" class="btn btn-primary">Edit</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{end}}
+        {{else}}
+            {{range .diets}}
+                <div class="col-xl-4 diet-box">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{.Name}}</h5>
+                            <p class="card-text">{{.Description}}</p>
+                            <a href="#" class="btn btn-primary">Buy</a>
+                        </div>
+                    </div>
+                </div>
+            {{end}}
         {{end}}
     </div>
 </div>

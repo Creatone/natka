@@ -1,0 +1,40 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-xl-12">
+            <h3>Edit article</h3>
+            <form action="{{url "Articles.EditApply"}}" method="POST">
+                {{with $field := field "article.ID" .}}
+                    <input type="hidden" name="{{$field.Name}}" value="{{$field.Value}}">
+                {{end}}
+                {{with $field := field "article.Name" .}}
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="{{$field.Name}}" placeholder="Enter title" value="{{$field.Value}}">
+                    </div>
+                {{end}}
+                {{with $field := field "article.Description" .}}
+                    <div class="form-group">
+                        <textarea class="form-control" name="{{$field.Name}}" placeholder="Enter description">{{$field.Value}}</textarea>
+                    </div>
+                {{end}}
+                {{with $field := field "article.Text" .}}
+                    <div class="form-group">
+                        <textarea class="form-control" id="mytextarea" name="{{$field.Name}}">{{$field.Value}}</textarea>
+                    </div>
+                {{end}}
+                <button id="save-button" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#mytextarea',
+        plugins: 'image',
+        images_upload_url: 'image'
+    });
+</script>
+
+{{template "footer.html" .}}

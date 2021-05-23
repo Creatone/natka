@@ -31,6 +31,8 @@ GET     /articles                               Articles.Articles
 GET     /articles/add                           Articles.Add
 POST    /articles/insert                        Articles.Insert
 POST    /articles/image                         Articles.Image
+GET     /articles/edit/:id                      Articles.Edit
+POST    /articles/edit/apply                    Articles.EditApply
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
