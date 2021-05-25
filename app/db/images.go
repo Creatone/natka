@@ -2,6 +2,7 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"natka/app/models"
 )
@@ -12,10 +13,15 @@ func InsertImage(image models.Image) (interface{}, error) {
 	return insert(imagesCollection, image)
 }
 
-func GetImage(id interface{}) (models.Image, error) {
+func GetImage(id string) (models.Image, error) {
 	var image models.Image
 
-	err := get(imagesCollection, bson.D{{"_id", id}}, &image)
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return image, err
+	}
+
+	err = get(imagesCollection, bson.D{{"_id", objectID}}, &image)
 	if err != nil {
 		return image, err
 	}

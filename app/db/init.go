@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -43,7 +44,7 @@ func insert(collectionName string, document interface{}) (interface{}, error) {
 		return nil, err
 	}
 
-	return result.InsertedID, nil
+	return result.InsertedID.(primitive.ObjectID).Hex(), nil
 }
 
 func edit(collectionName string, filter interface{}, document interface{}) error {

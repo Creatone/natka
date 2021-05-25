@@ -3,12 +3,11 @@ package profile
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	img "image"
 	_ "image/jpeg"
 
 	"github.com/revel/revel"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"natka/app/controllers/utils"
 	"natka/app/db"
@@ -30,11 +29,11 @@ func (c Profile) Index() revel.Result {
 	if user := utils.IsConnected(c.Session); user != nil {
 		diets, _ := db.GetDiets()
 		var image models.Image
-		if user.Avatar != nil {
+		if user.Avatar != "" {
 			var err error
 			image, err = db.GetImage(user.Avatar)
 			if err != nil {
-				return c.RenderError(err)
+				return c.RenderError(fmt.Errorf("cannot gather users avatar: %v", err))
 			}
 		}
 		avatar := base64.StdEncoding.EncodeToString(image.Data)
@@ -47,7 +46,7 @@ func (c Profile) Index() revel.Result {
 func (c Profile) Edit() revel.Result {
 	if user := utils.IsConnected(c.Session); user != nil {
 		var image models.Image
-		if user.Avatar != nil {
+		if user.Avatar != "" {
 			var err error
 			image, err = db.GetImage(user.Avatar)
 			if err != nil {
@@ -79,10 +78,9 @@ func (c Profile) ApplyEdit(user models.User, avatar []byte) revel.Result {
 		}
 		// TODO: Shrink image.
 		image := models.Image{Data: avatar}
-		if sessionUser.Avatar == nil {
+		if sessionUser.Avatar == "" {
 			id, err := db.InsertImage(image)
-			var another = id.(primitive.ObjectID)
-			sessionUser.Avatar = &another
+			sessionUser.Avatar = id.(string)
 			if err != nil {
 				return c.RenderError(err)
 			}
