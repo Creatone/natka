@@ -3,7 +3,6 @@ package db
 import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"natka/app/models"
 )
 
@@ -41,6 +40,7 @@ func EditArticle(article models.Article) error {
 	if err != nil {
 		return err
 	}
+
 	return edit(articlesCollection, bson.D{{"_id", objectID}},
 		bson.D{{"$set", bson.D{
 			{"name", article.Name},
