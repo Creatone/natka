@@ -25,7 +25,12 @@ func (c *Articles) Articles() revel.Result {
 		return c.RenderError(err)
 	}
 
-	return c.Render(user, articles)
+	instaPosts, err := models.GetPosts()
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	return c.Render(user, articles, instaPosts)
 }
 
 func (c *Articles) Add() revel.Result {
@@ -42,10 +47,13 @@ func (c *Articles) Image() revel.Result {
 }
 
 func (c *Articles) Insert(name string, description string, text string) revel.Result {
+	id := primitive.NewObjectID().Hex()
 	article := models.Article{
+		ID:          id,
 		Name:        name,
 		Description: description,
 		Text:        text,
+		URL:         routes.Articles.Show(id),
 	}
 
 	_, err := db.InsertArticle(article)

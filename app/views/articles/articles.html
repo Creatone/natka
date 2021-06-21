@@ -19,7 +19,7 @@
             {{range .articles}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="{{.ThumbnailURL}}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{.Name}}</h5>
                             <p class="card-text">{{.Description}}</p>
@@ -43,6 +43,18 @@
                     </div>
                 </div>
             {{end}}
+        {{end}}
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Instagram</h1>
+    </div>
+    <div class="row justify-content-md-center">
+        {{range .instaPosts}}
+            <a href="{{.Permalink}}" target="_blank">
+                <img src="{{.MediaURL}}" alt="..." height="200px" width="200px" style="margin:1px">
+            </a>
         {{end}}
     </div>
 </div>
