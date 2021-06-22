@@ -1,4 +1,4 @@
-package models
+package instagram
 
 import (
 	"encoding/json"

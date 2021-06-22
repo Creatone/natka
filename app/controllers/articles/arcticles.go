@@ -25,12 +25,7 @@ func (c *Articles) Articles() revel.Result {
 		return c.RenderError(err)
 	}
 
-	instaPosts, err := models.GetPosts()
-	if err != nil {
-		return c.RenderError(err)
-	}
-
-	return c.Render(user, articles, instaPosts)
+	return c.Render(user, articles)
 }
 
 func (c *Articles) Add() revel.Result {

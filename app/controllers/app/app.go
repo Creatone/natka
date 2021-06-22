@@ -5,6 +5,7 @@ import (
 
 	"natka/app/controllers/utils"
 	"natka/app/db"
+	"natka/app/models/instagram"
 )
 
 type App struct {
@@ -17,7 +18,13 @@ func (c App) Index() revel.Result {
 	user := utils.IsConnected(c.Session)
 
 	diets, _ := db.GetDiets()
-	return c.Render(siteTitle, user, diets)
+
+	instaPosts, err := instagram.GetPosts()
+	if err != nil {
+		return c.RenderError(err)
+	}
+
+	return c.Render(siteTitle, user, diets, instaPosts)
 }
 
 func (c App) Calculator() revel.Result {

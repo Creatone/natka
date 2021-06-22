@@ -46,16 +46,4 @@
         {{end}}
     </div>
 </div>
-<div class="container">
-    <div class="row justify-content-center">
-        <h1>Instagram</h1>
-    </div>
-    <div class="row justify-content-md-center">
-        {{range .instaPosts}}
-            <a href="{{.Permalink}}" target="_blank">
-                <img src="{{.MediaURL}}" alt="..." height="200px" width="200px" style="margin:1px">
-            </a>
-        {{end}}
-    </div>
-</div>
 {{template "footer.html" .}}
