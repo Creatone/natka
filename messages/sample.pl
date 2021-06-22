@@ -7,10 +7,10 @@
 [DEFAULT]
 
 # NAVBAR
-navbar.home=Home
-navbar.articles=Articles
-navbar.calculator=KCAL calculator
-navbar.login=Login
+navbar.home=Strona główna
+navbar.articles=Artykuły
+navbar.calculator=Kalkulator KCAL
+navbar.login=Zaloguj
 
 # FOOTER
-footer.text=@ 2021 - Dietetyk Natka. All rights reserved.
+footer.text =@ 2021 - Dietetyk Natka. Wszelkie prawa zastrzeżone.
