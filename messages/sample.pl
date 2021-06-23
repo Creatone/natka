@@ -11,6 +11,9 @@ navbar.home=Strona główna
 navbar.articles=Artykuły
 navbar.calculator=Kalkulator KCAL
 navbar.login=Zaloguj
+navbar.about=O mnie
+
+about.me=Cześć! Jestem Natalia
 
 # FOOTER
 footer.text =@ 2021 - Dietetyk Natka. Wszelkie prawa zastrzeżone.

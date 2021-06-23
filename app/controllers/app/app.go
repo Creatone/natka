@@ -27,6 +27,10 @@ func (c App) Index() revel.Result {
 	return c.Render(siteTitle, user, diets, instaPosts)
 }
 
+func (c App) About() revel.Result {
+	return c.Render()
+}
+
 func (c App) Calculator() revel.Result {
 	return c.Render()
 }
