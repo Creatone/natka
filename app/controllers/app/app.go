@@ -34,3 +34,7 @@ func (c App) About() revel.Result {
 func (c App) Calculator() revel.Result {
 	return c.Render()
 }
+
+func (c App) Contact() revel.Result {
+	return c.Render()
+}

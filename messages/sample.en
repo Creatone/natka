@@ -12,8 +12,10 @@ navbar.articles=Articles
 navbar.calculator=KCAL calculator
 navbar.login=Login
 navbar.about=About me
+navbar.contact=Contact
 
 about.me=Hello! I'm Natalia
+contact=Contact
 
 # FOOTER
 footer.text=@ 2021 - Dietetyk Natka. All rights reserved.

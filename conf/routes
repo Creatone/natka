@@ -10,6 +10,7 @@ module:testrunner
 GET     /                                       App.Index
 GET     /calculator                             App.Calculator
 GET     /about                                  App.About
+GET     /contact                                App.Contact
 GET     /profile                                Profile.Index
 GET     /profile/edit                           Profile.Edit
 POST    /profile/edit/apply                     Profile.ApplyEdit
