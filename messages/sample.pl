@@ -19,3 +19,7 @@ contact=Kontakt
 
 # FOOTER
 footer.text =@ 2021 - Dietetyk Natka. Wszelkie prawa zastrzeżone.
+
+# Buttons
+btn.cancel=Anuluj
+btn.submit=Potwierdź

@@ -1,0 +1,5 @@
+[DEFAULT]
+login.password=Password
+login.password.placeholder=Enter a password
+login.email.placeholder=Enter a email
+login.email.help=We'll never share your email with anyone else.

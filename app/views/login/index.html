@@ -4,14 +4,16 @@
     <div class="row justify-content-md-center">
         <div class="col-xl-6">
             <form action="{{url "Login.CheckMail"}}" method="POST">
+                {{$emailHelp := msg . "login.email.help"}}
+                {{$placeholder := msg . "login.email.placeholder"}}
                 {{with $field := field "mail" .}}
                     <div class="form-group">
                         <label for="mail">Email:</label>
-                        <input type="email" class="form-control" name="{{$field.Name}}" aria-describedby="emailHelp" placeholder="Enter mail" value="{{$field.Flash}}">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <input type="email" class="form-control" name="{{$field.Name}}" aria-describedby="emailHelp" placeholder="{{$placeholder}}" value="{{$field.Flash}}">
+                        <small id="emailHelp" class="form-text text-muted">{{$emailHelp}}</small>
                     </div>
                 {{end}}
-                <input type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">{{msg . "btn.submit"}}</button>
             </form>
         </div>
     </div>
