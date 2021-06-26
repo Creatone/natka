@@ -18,3 +18,6 @@ footer.text =@ 2021 - Dietetyk Natka. Wszelkie prawa zastrzeżone.
 btn.cancel=Anuluj
 btn.submit=Potwierdź
 btn.logout=Wyloguj
+btn.show=Pokaż
+btn.buy=Kup
+btn.edit=Edytuj

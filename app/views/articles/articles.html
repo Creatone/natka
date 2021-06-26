@@ -16,6 +16,8 @@
             </div>
         {{end}}
         {{if (session "user.Admin" .)}}
+            {{$btnShow := msg . "btn.show"}}
+            {{$btnEdit := msg . "btn.edit"}}
             {{range .articles}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
@@ -23,13 +25,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{.Name}}</h5>
                             <p class="card-text">{{.Description}}</p>
-                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">Show</a>
-                            <a href="{{url "Articles.Edit" .ID}}" class="btn btn-primary">Edit</a>
+                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">{{$btnShow}}</a>
+                            <a href="{{url "Articles.Edit" .ID}}" class="btn btn-primary">{{$btnEdit}}</a>
                         </div>
                     </div>
                 </div>
             {{end}}
         {{else}}
+            {{$btnShow := msg . "btn.show"}}
+            {{$btnBuy := msg . "btn.buy"}}
             {{range .articles}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
@@ -37,8 +41,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{.Name}}</h5>
                             <p class="card-text">{{.Description}}</p>
-                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">Show</a>
-                            <a href="#" class="btn btn-primary">Buy</a>
+                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">{{$btnShow}}</a>
                         </div>
                     </div>
                 </div>

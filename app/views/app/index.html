@@ -16,6 +16,7 @@
             </div>
         {{end}}
         {{if (session "user.Admin" .)}}
+            {{$btnEdit := msg . "btn.edit"}}
             {{range .diets}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
@@ -23,12 +24,13 @@
                         <div class="card-body">
                             <h5 class="card-title">{{.Name}}</h5>
                             <p class="card-text">{{.Description}}</p>
-                            <a href="#" class="btn btn-primary">Edit</a>
+                            <a href="#" class="btn btn-primary">{{$btnEdit}}</a>
                         </div>
                     </div>
                 </div>
             {{end}}
         {{else}}
+            {{$btnBuy := msg . "btn.buy"}}
             {{range .diets}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
@@ -36,7 +38,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{.Name}}</h5>
                             <p class="card-text">{{.Description}}</p>
-                            <a href="#" class="btn btn-primary">Buy</a>
+                            <a href="#" class="btn btn-primary">{{$btnBuy}}</a>
                         </div>
                     </div>
                 </div>
