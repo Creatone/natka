@@ -14,6 +14,11 @@ import (
 	"natka/app/routes"
 )
 
+const (
+	wrongPasswordErrorKey = "login.wrong.password"
+	noEmailErrorKey       = "login.no.email"
+)
+
 var sessionKey = "user"
 
 type Login struct {
@@ -40,15 +45,15 @@ func isMailPresent(mail string) (bool, error) {
 	return true, nil
 }
 
-func login(mail, password string) (*models.User, error) {
+func login(mail, password string, noUserErrorString string, wrongPasswordErrorString string) (*models.User, error) {
 	user, err := db.GetUser(mail)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf(noUserErrorString)
 	}
 	if user != nil {
 		err = bcrypt.CompareHashAndPassword(user.Password, []byte(password))
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf(wrongPasswordErrorString)
 		}
 		return user, nil
 	}
@@ -75,20 +80,24 @@ func (c Login) CheckMail(mail string) revel.Result {
 }
 
 func (c Login) Login(mail, password string) revel.Result {
-	user, err := login(mail, password)
+	user, err := login(mail, password, c.Message(noEmailErrorKey), c.Message(wrongPasswordErrorKey))
 	if err != nil {
-		return c.RenderError(err)
+		c.Validation.Error(err.Error())
+		c.Validation.Keep()
+		c.FlashParams()
+		return c.Redirect(routes.Login.EnterPassword(mail))
 	}
 	if user != nil {
 		c.Session.SetDefaultExpiration()
 		err := c.Session.Set(sessionKey, user)
 		if err != nil {
-			return c.RenderError(err)
+			c.Validation.Error(err.Error())
+			c.Validation.Keep()
+			return c.Redirect(routes.Login.Index())
 		}
 		return c.Redirect(routes.App.Index())
 	}
-
-	return c.RenderError(fmt.Errorf("cannot login"))
+	return c.Redirect(routes.Login.Index())
 }
 
 func (c Login) Logout() revel.Result {
