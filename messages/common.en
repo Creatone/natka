@@ -17,3 +17,4 @@ footer.text=@ 2021 - Dietetyk Natka. All rights reserved.
 # BUTTONS
 btn.cancel=Cancel
 btn.submit=Submit
+btn.logout=Logout
