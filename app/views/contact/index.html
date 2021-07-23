@@ -1,0 +1,54 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1>{{msg . "contact.title"}}</h1>
+            <h2>{{msg . "contact.mail"}}</h2>
+            <h3>kontak@dietetyknatka.pl</h3>
+            <h2>{{msg . "contact.company.data"}}</h2>
+            <h3>
+                Natalia Danio
+                136 W 33RD
+                NEW YORK NY 10001-2016
+                USA
+            </h3>
+        </div>
+        <div class="col-6">
+            <form action="{{url "Contact.SendMessage"}}" method="POST">
+                {{$name := msg . "contact.form.name"}}
+                {{with $field := field "name" .}}
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">{{$name}}</label>
+                        <input type="text" class="form-control" name="{{$field.Name}}" value="{{$field.Value}}" required>
+                    </div>
+                {{end}}
+                {{$mail := msg . "contact.form.email"}}
+                {{with $field := field "mail" .}}
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">{{$mail}}</label>
+                        <input type="email" class="form-control" name="{{$field.Name}}" value="{{$field.Value}}" required>
+                    </div>
+                {{end}}
+                {{$text := msg . "contact.form.text"}}
+                {{with $field := field "text" .}}
+                    <div class="form-group">
+                        <label for="{{$field.Name}}">{{$text}}</label>
+                        <textarea class="form-control" name="{{$field.Name}}" rows="3" required>{{$field.Value}}</textarea>
+                    </div>
+                {{end}}
+                {{$agreement := msg . "contact.form.aggrement.text"}}
+                {{with $field := field "agreement" .}}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="{{$field.Name}}" value="{{$field.Value}}" required>
+                        <label class="form-check-label" for="{{$field.Name}}">{{$agreement}}</label>
+                    </div>
+                {{end}}
+                <p class="buttons">
+                    <input type="submit" class="btn btn-primary" value="Send">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{{template "footer.html" .}}
