@@ -6,3 +6,6 @@ login.email.help=Nigdy nie udostępnimy Twojego e-maila nikomu innemu.
 
 login.wrong.password=Coś poszło nie tak, spróbuj ponownie.
 login.no.email=Nie ma użytkownika powiązanego z tym emailem.
+login.message=Zalogowano pomyślnie.
+
+logout.message=Wylogowano pomyślnie.

@@ -6,3 +6,6 @@ login.email.help=We'll never share your email with anyone else.
 
 login.wrong.password=Something went wrong, try again.
 login.no.email=There is no user associated with that mail.
+login.message=Logged in successfully.
+
+logout.message=Logged out successfully.

@@ -95,6 +95,7 @@ func (c Login) Login(mail, password string) revel.Result {
 			c.Validation.Keep()
 			return c.Redirect(routes.Login.Index())
 		}
+		c.Flash.Success(c.Message("login.message"))
 		return c.Redirect(routes.App.Index())
 	}
 	return c.Redirect(routes.Login.Index())
@@ -102,6 +103,6 @@ func (c Login) Login(mail, password string) revel.Result {
 
 func (c Login) Logout() revel.Result {
 	c.Session.Del(sessionKey)
-
+	c.Flash.Success(c.Message("logout.message"))
 	return c.Redirect(routes.App.Index())
 }
