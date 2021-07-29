@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/revel/revel"
+	"github.com/revel/revel/session"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -19,9 +20,10 @@ type Register struct {
 func (c Register) Index(mail string) revel.Result {
 	sessionUser, err := c.Session.Get("user")
 	if err != nil {
-		c.Validation.Error(err.Error())
-		c.Validation.Keep()
-		return c.Redirect(routes.App.Index())
+		if err.Error() != session.SESSION_VALUE_NOT_FOUND.Error() {
+			c.Flash.Error(err.Error())
+			return c.Redirect(routes.App.Index())
+		}
 	}
 
 	if sessionUser != nil {
@@ -34,9 +36,10 @@ func (c Register) Index(mail string) revel.Result {
 func (c Register) Register(mail, name, password string) revel.Result {
 	sessionUser, err := c.Session.Get("user")
 	if err != nil {
-		c.Validation.Error(err.Error())
-		c.Validation.Keep()
-		return c.Redirect(routes.App.Index())
+		if err.Error() != session.SESSION_VALUE_NOT_FOUND.Error() {
+			c.Flash.Error(err.Error())
+			return c.Redirect(routes.App.Index())
+		}
 	}
 
 	if sessionUser != nil {
