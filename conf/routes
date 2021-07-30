@@ -26,11 +26,11 @@ POST    /logout                                 Login.Logout
 GET     /register                               Register.Index
 POST    /register                               Register.Register
 
-GET     /admin                                  Admin.Index
-GET     /admin/diets                            Admin.IndexDiet
-POST    /admin/diets                            Admin.InsertDiet
-
-GET     /basket                                 Basket.Basket
+GET     /shop                                   Shop.Index
+GET     /shop/basket                            Shop.ShowBasket
+GET     /shop/basket/add                        Shop.AddToBasket
+GET     /shop/basket/delete                     Shop.DeleteFromBasket
+GET     /shop/finalize                          Shop.Finalize
 
 GET     /articles                               Articles.Articles
 GET     /articles/add                           Articles.Add
@@ -39,6 +39,13 @@ POST    /articles/image                         Articles.Image
 GET     /articles/edit/:id                      Articles.Edit
 POST    /articles/edit/apply                    Articles.EditApply
 GET     /articles/show/:id                      Articles.Show
+
+GET     /diets/add                              Diets.Add
+POST    /diets/delete                           Diets.Delete
+POST    /diets/insert                           Diets.Insert
+GET     /diets/edit/:id                         Diets.Edit
+POST    /diets/edit/apply                       Diets.EditApply
+GET     /diets/show/:id                         Diets.Show
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

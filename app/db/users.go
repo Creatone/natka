@@ -27,5 +27,7 @@ func EditUser(user models.User) error {
 	return edit(usersCollection, bson.D{{"_id", user.ID}},
 		bson.D{{"$set", bson.D{
 			{"name", user.Name},
-			{"avatar", user.Avatar}}}})
+			{"avatar", user.Avatar},
+			{"diets", user.Diets},
+		}}})
 }

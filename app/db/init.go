@@ -101,3 +101,21 @@ func getAll(collectionName string, filter interface{}, document interface{}) err
 
 	return nil
 }
+
+func delete(collectionName string, filter interface{}) error {
+	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
+
+	db := client.Database(databaseName)
+	col := db.Collection(collectionName)
+
+	result, err := col.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+
+	if result.DeletedCount != 1 {
+		return fmt.Errorf("not deleted")
+	}
+
+	return nil
+}

@@ -2,48 +2,6 @@
 {{template "header.html" .}}
 <div class="container">
     <div class="row">
-        {{if (session "user.Admin" .)}}
-            <div class="col-xl-4 diet-box">
-                <div class="card text-white text-center bg-success h-100">
-                    <div class="card-body">
-                        <a href="{{url "Admin.InsertDiet"}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="white" class="bi bi-plus h-100" viewBox="0 0 16 16">
-                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {{end}}
-        {{if (session "user.Admin" .)}}
-            {{$btnEdit := msg . "btn.edit"}}
-            {{range .diets}}
-                <div class="col-xl-4 diet-box">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{.Name}}</h5>
-                            <p class="card-text">{{.Description}}</p>
-                            <a href="#" class="btn btn-primary">{{$btnEdit}}</a>
-                        </div>
-                    </div>
-                </div>
-            {{end}}
-        {{else}}
-            {{$btnBuy := msg . "btn.buy"}}
-            {{range .diets}}
-                <div class="col-xl-4 diet-box">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{.Name}}</h5>
-                            <p class="card-text">{{.Description}}</p>
-                            <a href="#" class="btn btn-primary">{{$btnBuy}}</a>
-                        </div>
-                    </div>
-                </div>
-            {{end}}
-        {{end}}
     </div>
 </div>
 <div class="container">

@@ -7,6 +7,7 @@ navbar.calculator=KCAL calculator
 navbar.login=Login
 navbar.about=About me
 navbar.contact=Contact
+navbar.shop=Shop
 
 about.me=Hello! I'm Natalia
 contact=Contact
@@ -21,3 +22,5 @@ btn.logout=Logout
 btn.show=Show
 btn.buy=Buy
 btn.edit=Edit
+btn.delete=Remove
+btn.order=Order

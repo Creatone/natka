@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-xl-6">
-            <form action="{{url "Admin.InsertDiet"}}" method="POST">
+            <form action="{{url "Diets.Insert"}}" method="POST">
                 {{with $field := field "name" .}}
                     <div class="form-group">
                         <label for="{{$field.Name}}">Name:</label>
@@ -17,7 +17,7 @@
                     </div>
                 {{end}}
                 <input type="submit" class="btn btn-primary">
-                <a href="{{url "Admin.Index"}}" class="btn btn-secondary">Cancel</a>
+                <a href="{{url "Shop.Index"}}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

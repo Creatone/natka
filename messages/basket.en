@@ -1,0 +1,4 @@
+[DEFAULT]
+basket.diet.add=Diet added successfully.
+basket.diet.remove=Diet removed successfully.
+basket.order=Diets ordered successfully.

@@ -2,6 +2,7 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"natka/app/models"
 )
@@ -21,4 +22,33 @@ func GetDiets() ([]models.Diet, error) {
 	}
 
 	return diets, nil
+}
+
+func GetDiet(id *primitive.ObjectID) (*models.Diet, error) {
+	diet := models.Diet{}
+
+	err := get(dietsCollection, bson.D{{"_id", id}}, &diet)
+	if err != nil {
+		return nil, err
+	}
+
+	return &diet, nil
+}
+
+func EditDiet(diet models.Diet) error {
+	// TODO: Move bson-key thing to func.
+	objectID, err := primitive.ObjectIDFromHex(diet.ID)
+	if err != nil {
+		return err
+	}
+
+	return edit(dietsCollection, bson.D{{"_id", objectID}},
+		bson.D{{"$set", bson.D{
+			{"name", diet.Name},
+			{"description", diet.Description},
+		}}})
+}
+
+func DeleteDiet(id *primitive.ObjectID) error {
+	return delete(dietsCollection, bson.D{{"_id", &id}})
 }

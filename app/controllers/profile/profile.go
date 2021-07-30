@@ -9,6 +9,8 @@ import (
 
 	"github.com/revel/revel"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	"natka/app/controllers/utils"
 	"natka/app/db"
 	"natka/app/models"
@@ -27,7 +29,18 @@ type Profile struct {
 
 func (c Profile) Index() revel.Result {
 	if user := utils.IsConnected(c.Session); user != nil {
-		diets, _ := db.GetDiets()
+		var diets []models.Diet
+		for id, _ := range user.Diets {
+			dietID, err := primitive.ObjectIDFromHex(id)
+			if err != nil {
+				c.Flash.Error(err.Error())
+			}
+			diet, err := db.GetDiet(&dietID)
+			if err != nil {
+				c.Flash.Error(err.Error())
+			}
+			diets = append(diets, *diet)
+		}
 		var image models.Image
 		if user.Avatar != "" {
 			var err error
