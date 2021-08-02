@@ -12,6 +12,7 @@ import (
 )
 
 func (c *Shop) ShowBasket() revel.Result {
+	_ = utils.IsConnected(c.Session)
 	var basket models.Basket
 	_, _ = c.Session.GetInto("basket", &basket, true)
 

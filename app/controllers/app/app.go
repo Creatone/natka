@@ -25,9 +25,11 @@ func (c App) Index() revel.Result {
 }
 
 func (c App) About() revel.Result {
+	_ = utils.IsConnected(c.Session)
 	return c.Render()
 }
 
 func (c App) Calculator() revel.Result {
+	_ = utils.IsConnected(c.Session)
 	return c.Render()
 }

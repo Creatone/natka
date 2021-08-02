@@ -1,9 +1,10 @@
 package contact
 
 import (
-	"natka/app/routes"
-
 	"github.com/revel/revel"
+
+	"natka/app/controllers/utils"
+	"natka/app/routes"
 )
 
 type Contact struct {
@@ -11,6 +12,7 @@ type Contact struct {
 }
 
 func (c Contact) Index() revel.Result {
+	_ = utils.IsConnected(c.Session)
 	return c.Render()
 }
 

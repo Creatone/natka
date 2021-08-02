@@ -18,14 +18,14 @@ type Articles struct {
 }
 
 func (c *Articles) Articles() revel.Result {
-	user := utils.IsConnected(c.Session)
+	_ = utils.IsConnected(c.Session)
 
 	articles, err := db.GetArticles()
 	if err != nil {
 		return c.RenderError(err)
 	}
 
-	return c.Render(user, articles)
+	return c.Render(articles)
 }
 
 func (c *Articles) Add() revel.Result {
