@@ -30,7 +30,12 @@ func GetImage(id string) (models.Image, error) {
 }
 
 func EditImage(image models.Image) error {
-	return edit(imagesCollection, bson.D{{"_id", image.ID}},
+	objectID, err := primitive.ObjectIDFromHex(image.ID)
+	if err != nil {
+		return err
+	}
+
+	return edit(imagesCollection, bson.D{{"_id", objectID}},
 		bson.D{{"$set", bson.D{
 			{"data", image.Data}}}})
 }

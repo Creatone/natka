@@ -2,6 +2,7 @@ package db
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"natka/app/models"
 )
@@ -24,10 +25,14 @@ func GetUser(mail string) (*models.User, error) {
 }
 
 func EditUser(user models.User) error {
-	return edit(usersCollection, bson.D{{"_id", user.ID}},
+	objectID, err := primitive.ObjectIDFromHex(user.ID)
+	if err != nil {
+		return err
+	}
+
+	return edit(usersCollection, bson.D{{"_id", objectID}},
 		bson.D{{"$set", bson.D{
 			{"name", user.Name},
 			{"avatar", user.Avatar},
-			{"diets", user.Diets},
 		}}})
 }

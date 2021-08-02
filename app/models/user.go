@@ -6,6 +6,6 @@ type User struct {
 	Mail     string              `json:"mail" bson:"mail"`
 	Password []byte              `json:"password" bson:"password"`
 	Admin    bool                `json:"admin" bson:"admin"`
-	Avatar   string              `json:"avatar_id" bson:"avatar_id"`
+	Avatar   string              `json:"avatar" bson:"avatar"`
 	Diets    map[string]struct{} `json:"diets" bson:"diets"`
 }
