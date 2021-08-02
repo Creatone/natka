@@ -4,7 +4,6 @@ import (
 	"github.com/revel/revel"
 
 	"natka/app/controllers/utils"
-	"natka/app/db"
 	"natka/app/models/instagram"
 )
 
@@ -17,14 +16,12 @@ func (c App) Index() revel.Result {
 
 	user := utils.IsConnected(c.Session)
 
-	diets, _ := db.GetDiets()
-
 	instaPosts, err := instagram.GetPosts()
 	if err != nil {
 		return c.RenderError(err)
 	}
 
-	return c.Render(siteTitle, user, diets, instaPosts)
+	return c.Render(siteTitle, user, instaPosts)
 }
 
 func (c App) About() revel.Result {
