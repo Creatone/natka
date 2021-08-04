@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -89,7 +90,9 @@ func getAll(collectionName string, filter interface{}, document interface{}) err
 	db := client.Database(databaseName)
 	col := db.Collection(collectionName)
 
-	result, err := col.Find(ctx, filter)
+	result, err := col.Find(ctx, filter, &options.FindOptions{
+		Sort: bson.D{{Key: "_id", Value: -1}},
+	})
 	if err != nil {
 		return err
 	}

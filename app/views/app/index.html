@@ -1,10 +1,57 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
+        <div class="col" style="padding: 0">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {{if (session "user.Admin" .)}}
+                        <li data-target="#carousel" data-slide-to="-1"></li>
+                    {{end}}
+                    {{range $index, $element := .carousel}}
+                    <li data-target="#carousel" data-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
+                    {{end}}
+                </ol>
+                <div class="carousel-inner">
+                    {{if (session "user.Admin" .)}}
+                    <div class="carousel-item {{if eq (len .carousel) 0}}active{{end}}" >
+                        <a href="{{url "App.AddCarousel"}}">
+                            <img class="d-block w-100" src="/public/img/carousel_add.JPEG" alt="Add slide">
+                        </a>
+                    </div>
+                    {{end}}
+                    {{$isAdmin := (session "user.Admin" .)}}
+                    {{$btnEdit := (msg . "btn.edit")}}
+                    {{$btnDelete := (msg . "btn.delete")}}
+                    {{range $index, $element := .carousel}}
+                        <div class="carousel-item {{if eq $index 0}}active{{end}}">
+                            <img class="d-block w-100" src="data:image/jpg;base64, {{$element.Data}}">
+                            {{if $isAdmin}}
+                                <div class="row justify-content-end carousel-indicators">
+                                    <a href="{{url "App.EditCarousel" .ID}}">
+                                        <button class="btn btn-warning center">{{$btnEdit}}</button>
+                                    </a>
+                                    <a href="{{url "App.DeleteCarousel" .ID}}">
+                                        <button class="btn btn-danger center">{{$btnDelete}}</button>
+                                    </a>
+                                </div>
+                            {{end}}
+                        </div>
+                    {{end}}
+                </div>
+                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="margin-top:20px">
     <div class="row justify-content-center">
         <h1>Instagram</h1>
     </div>
@@ -13,6 +60,24 @@
             <a href="{{.Permalink}}" target="_blank">
                 <img src="{{.MediaURL}}" alt="..." height="200px" width="200px" style="margin:1px">
             </a>
+        {{end}}
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Proponowane diety</h1>
+    </div>
+    <div class="row justify-content-center">
+        {{range .diets}}
+            <div class="col-xl-4 diet-box">
+                <div class="card h-100">
+                    <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{.Name}}</h5>
+                        <p class="card-text">{{.Description}}</p>
+                    </div>
+                </div>
+            </div>
         {{end}}
     </div>
 </div>

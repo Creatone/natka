@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	_      = iota
-	KB int = 1 << (10 * iota)
+	profileType     = "profile"
+	_               = iota
+	KB          int = 1 << (10 * iota)
 	MB
 )
 
@@ -48,7 +49,7 @@ func (c Profile) Index() revel.Result {
 				c.Flash.Error(err.Error())
 			}
 		}
-		avatar := base64.StdEncoding.EncodeToString(image.Data)
+		avatar := image.Data
 		return c.Render(user, diets, avatar)
 	}
 
@@ -65,7 +66,8 @@ func (c Profile) Edit() revel.Result {
 				c.Flash.Error(err.Error())
 			}
 		}
-		avatar := base64.StdEncoding.EncodeToString(image.Data)
+		avatar := image.Data
+
 		return c.Render(user, avatar)
 	}
 
@@ -92,7 +94,10 @@ func (c Profile) ApplyEdit(user models.User, avatar []byte) revel.Result {
 				return c.Redirect(routes.Profile.Edit())
 			}
 
-			image := models.Image{Data: avatar}
+			image := models.Image{
+				Data: base64.StdEncoding.EncodeToString(avatar),
+				Type: profileType,
+			}
 
 			if sessionUser.Avatar == "" {
 				id, err := db.InsertImage(image)

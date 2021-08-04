@@ -10,6 +10,11 @@ module:testrunner
 GET     /                                       App.Index
 GET     /calculator                             App.Calculator
 GET     /about                                  App.About
+GET     /carousel/add                           App.AddCarousel
+POST    /carousel/insert                        App.InsertCarousel
+GET     /carousel/delete/:id                    App.DeleteCarousel
+GET     /carousel/edit/:id                      App.EditCarousel
+POST    /carousel/edit/apply                    App.ApplyEditCarousel
 
 GET     /contact                                Contact.Index
 POST    /contact/send                           Contact.SendMessage

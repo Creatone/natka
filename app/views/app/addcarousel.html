@@ -1,0 +1,16 @@
+{{set . "title" "Home"}}
+{{template "header.html" .}}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-xl-6">
+            <form action="{{url "App.InsertCarousel"}}" method="POST" enctype="multipart/form-data">
+                {{with $field := field "carouselimage" .}}
+                    <input type="file" name="{{$field.Name}}" id="{{$field.Name}}" accept="image/jpeg, image/png">
+                {{end}}
+                <input type="submit" class="btn btn-primary">
+                <a href="{{url "App.Index"}}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{{template "footer.html" .}}

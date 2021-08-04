@@ -29,6 +29,17 @@ func GetImage(id string) (models.Image, error) {
 	return image, nil
 }
 
+func GetImagesByType(passedType string) ([]models.Image, error) {
+	var images []models.Image
+
+	err := getAll(imagesCollection, bson.D{{"type", passedType}}, &images)
+	if err != nil {
+		return images, err
+	}
+
+	return images, nil
+}
+
 func EditImage(image models.Image) error {
 	objectID, err := primitive.ObjectIDFromHex(image.ID)
 	if err != nil {
@@ -38,4 +49,13 @@ func EditImage(image models.Image) error {
 	return edit(imagesCollection, bson.D{{"_id", objectID}},
 		bson.D{{"$set", bson.D{
 			{"data", image.Data}}}})
+}
+
+func DeleteImage(id string) error {
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+
+	return delete(imagesCollection, bson.D{{"_id", &objectID}})
 }
