@@ -78,7 +78,9 @@
         {{range .diets}}
             <div class="col-xl-4 diet-box">
                 <div class="card h-100">
-                    <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                    <div class="zoom-wrapper">
+                        <img class="card-img-top zoom" src="/public/img/diet.jpg" alt="Card image cap">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{.Name}}</h5>
                         <p class="card-text">{{.Description}}</p>
