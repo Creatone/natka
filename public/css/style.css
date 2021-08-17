@@ -5,3 +5,7 @@
 .container {
     margin-top: 20px;
 }
+
+.min-vh-10 {
+    min-height: 10vh!important;
+}
