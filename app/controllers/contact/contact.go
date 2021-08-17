@@ -19,6 +19,6 @@ func (c Contact) Index() revel.Result {
 // TODO: Fix missing textarea
 func (c Contact) SendMessage(name string, mail string, text string, aggrement bool) revel.Result {
 	c.Log.Infof("%v %v %v %v", name, mail, text, aggrement)
-
+	c.Flash.Success(c.Message("contact.form.sent"))
 	return c.Redirect(routes.Contact.Index())
 }

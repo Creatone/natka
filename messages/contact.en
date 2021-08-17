@@ -6,3 +6,4 @@ contact.form.name=Name and surname
 contact.form.email=Email address
 contact.form.text=Message
 contact.form.aggrement.text=I consent to the processing of my personal data in accordance with the Personal Data Protection Act in connection with sending an inquiry via the above contact form. Providing data is voluntary, but necessary to process the inquiry. I have been informed that I have the right to access my data, the possibility of correcting it, and requesting the cessation of its processing.
+contact.form.sent=Thanks for message!
