@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col" style="padding: 0">
             <div id="carousel" class="carousel slide" data-ride="carousel">
+                {{if len .carousel}}
                 <ol class="carousel-indicators">
                     {{if (session "user.Admin" .)}}
                         <li data-target="#carousel" data-slide-to="-1"></li>
@@ -12,6 +13,7 @@
                     <li data-target="#carousel" data-slide-to="{{$index}}" {{if eq $index 0}}class="active"{{end}}></li>
                     {{end}}
                 </ol>
+                {{end}}
                 <div class="carousel-inner">
                     {{if (session "user.Admin" .)}}
                     <div class="carousel-item {{if eq (len .carousel) 0}}active{{end}}" >
@@ -42,6 +44,7 @@
                         </div>
                     {{end}}
                 </div>
+                {{ if len .carousel }}
                 <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -50,6 +53,7 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+                {{end}}
             </div>
         </div>
     </div>
