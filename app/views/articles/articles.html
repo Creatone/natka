@@ -1,7 +1,7 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 <div class="container">
-    <div class="row justify-content-md-center">
+    <div class="row">
         {{if (session "user.Admin" .)}}
             <div class="col-xl-4 diet-box">
                 <div class="card text-white text-center bg-success h-100">
@@ -21,12 +21,12 @@
             {{range .articles}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
-                        <img class="card-img-top" src="{{.ThumbnailURL}}" alt="Card image cap">
+                        <img class="card-img-top" src="data:image/jpg;base64, {{.Thumbnail.Data}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{.Name}}</h5>
-                            <p class="card-text">{{.Description}}</p>
-                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">{{$btnShow}}</a>
-                            <a href="{{url "Articles.Edit" .ID}}" class="btn btn-primary">{{$btnEdit}}</a>
+                            <h5 class="card-title">{{.Article.Name}}</h5>
+                            <p class="card-text">{{.Article.Description}}</p>
+                            <a href="{{url "Articles.Show" .Article.ID}}" class="btn btn-primary">{{$btnShow}}</a>
+                            <a href="{{url "Articles.Edit" .Article.ID}}" class="btn btn-primary">{{$btnEdit}}</a>
                         </div>
                     </div>
                 </div>
@@ -37,11 +37,11 @@
             {{range .articles}}
                 <div class="col-xl-4 diet-box">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/public/img/diet.jpg" alt="Card image cap">
+                        <img class="card-img-top" src="data:image/jpg;base64, {{.Thumbnail.Data}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">{{.Name}}</h5>
-                            <p class="card-text">{{.Description}}</p>
-                            <a href="{{url "Articles.Show" .ID}}" class="btn btn-primary">{{$btnShow}}</a>
+                            <h5 class="card-title">{{.Article.Name}}</h5>
+                            <p class="card-text">{{.Article.Description}}</p>
+                            <a href="{{url "Articles.Show" .Article.ID}}" class="btn btn-primary">{{$btnShow}}</a>
                         </div>
                     </div>
                 </div>

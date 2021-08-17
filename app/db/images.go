@@ -21,7 +21,7 @@ func GetImage(id string) (models.Image, error) {
 		return image, err
 	}
 
-	err = get(imagesCollection, bson.D{{"_id", objectID}}, &image)
+	err = get(imagesCollection, bson.D{{"_id", &objectID}}, &image)
 	if err != nil {
 		return image, err
 	}

@@ -4,7 +4,10 @@
     <div class="row justify-content-md-center">
         <div class="col-xl-12">
             <h3>Add new article</h3>
-            <form action="{{url "Articles.Insert"}}" method="POST">
+            <form action="{{url "Articles.Insert"}}" method="POST" enctype="multipart/form-data">
+                {{with $field := field "thumbnail" .}}
+                    <input type="file" name="{{$field.Name}}" id="{{$field.Name}}" accept="image/jpeg, image/png">
+                {{end}}
                 {{with $field := field "name" .}}
                     <div class="form-group">
                         <input type="text" class="form-control" name="{{$field.Name}}" placeholder="Enter title" value="{{$field.Value}}">

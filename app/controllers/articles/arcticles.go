@@ -1,6 +1,7 @@
 package articles
 
 import (
+	"encoding/base64"
 	"fmt"
 
 	"github.com/revel/revel"
@@ -13,6 +14,10 @@ import (
 	"natka/app/routes"
 )
 
+const (
+	thumbnailType = "thumbnail"
+)
+
 type Articles struct {
 	*revel.Controller
 }
@@ -20,9 +25,27 @@ type Articles struct {
 func (c *Articles) Articles() revel.Result {
 	_ = utils.IsConnected(c.Session)
 
-	articles, err := db.GetArticles()
+	rawArticles, err := db.GetArticles()
 	if err != nil {
 		return c.RenderError(err)
+	}
+
+	articles := map[string]struct {
+		Article   models.Article
+		Thumbnail models.Image
+	}{}
+
+	for _, article := range rawArticles {
+		thumbnail, err := db.GetImage(article.Thumbnail)
+		if err != nil {
+			c.Flash.Error(err.Error())
+			return c.Redirect(routes.App.Index())
+		}
+
+		articles[article.ID] = struct {
+			Article   models.Article
+			Thumbnail models.Image
+		}{Article: article, Thumbnail: thumbnail}
 	}
 
 	return c.Render(articles)
@@ -41,16 +64,30 @@ func (c *Articles) Image() revel.Result {
 	return c.RenderError(fmt.Errorf("Not an admin!"))
 }
 
-func (c *Articles) Insert(name string, description string, text string) revel.Result {
-	article := models.Article{
-		Name:        name,
-		Description: description,
-		Text:        text,
-	}
+func (c *Articles) Insert(thumbnail []byte, name string, description string, text string) revel.Result {
+	if user := utils.IsConnected(c.Session); user != nil && user.Admin {
+		image := models.Image{
+			Data: base64.StdEncoding.EncodeToString(thumbnail),
+			Type: thumbnailType,
+		}
 
-	_, err := db.InsertArticle(article)
-	if err != nil {
-		return c.RenderError(err)
+		id, err := db.InsertImage(image)
+		if err != nil {
+			c.Flash.Error("%s : %w", c.Message("articles.insert.thumbnail.error"), err)
+			return c.Redirect(routes.Articles.Add())
+		}
+
+		article := models.Article{
+			Name:        name,
+			Description: description,
+			Text:        text,
+			Thumbnail:   id.(string),
+		}
+
+		_, err = db.InsertArticle(article)
+		if err != nil {
+			c.Flash.Error("%s : %w", c.Message("articles.insert.article.error"), err)
+		}
 	}
 
 	return c.Redirect(routes.Articles.Add())
