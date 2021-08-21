@@ -5,6 +5,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
+	"natka/app/controllers/utils"
 	"natka/app/db"
 	"natka/app/models"
 	"natka/app/routes"
@@ -32,24 +33,26 @@ func (c *Diets) Insert(name string, description string) revel.Result {
 	return c.Redirect(routes.Shop.Index())
 }
 
-func (c *Diets) Delete(diet models.Diet) revel.Result {
-	c.Log.Infof("Diet id: %v", diet.ID)
-	dietID, err := primitive.ObjectIDFromHex(diet.ID)
-	if err != nil {
-		// TODO: Format error.
-		c.Flash.Error(err.Error())
+func (c *Diets) Delete(id string) revel.Result {
+	if sessionUser := utils.IsConnected(c.Session); sessionUser != nil && sessionUser.Admin {
+		dietID, err := primitive.ObjectIDFromHex(id)
+		if err != nil {
+			// TODO: Format error.
+			c.Flash.Error(err.Error())
+			return c.Redirect(routes.Shop.Index())
+		}
+
+		err = db.DeleteDiet(&dietID)
+		if err != nil {
+			// TODO: Format error.
+			c.Flash.Error(err.Error())
+			return c.Redirect(routes.Shop.Index())
+		}
+		// TODO: Success message.
 		return c.Redirect(routes.Shop.Index())
 	}
 
-	err = db.DeleteDiet(&dietID)
-	if err != nil {
-		// TODO: Format error.
-		c.Flash.Error(err.Error())
-		return c.Redirect(routes.Shop.Index())
-	}
-
-	// TODO: Success message.
-	return c.Redirect(routes.Shop.Index())
+	return c.Redirect(routes.App.Index())
 }
 
 func (c *Diets) Edit(id string) revel.Result {

@@ -46,10 +46,10 @@ POST    /articles/edit/apply                    Articles.EditApply
 GET     /articles/show/:id                      Articles.Show
 
 GET     /diets/add                              Diets.Add
-POST    /diets/delete                           Diets.Delete
 POST    /diets/insert                           Diets.Insert
 GET     /diets/edit/:id                         Diets.Edit
 POST    /diets/edit/apply                       Diets.EditApply
+GET     /diets/delete/:id                       Diets.Delete
 GET     /diets/show/:id                         Diets.Show
 
 # Ignore favicon requests

@@ -2,7 +2,7 @@
 {{template "header.html" .}}
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col-xl-12">
+        <div class="col-md-8">
             <h3>Edit article</h3>
             <form action="{{url "Diets.EditApply"}}" method="POST">
                 {{with $field := field "diet.ID" .}}
@@ -19,12 +19,10 @@
                     </div>
                 {{end}}
                 <button id="save-button" class="btn btn-primary">Save</button>
-            </form>
-            <form action="{{url "Diets.Delete"}}" method="POST">
+                {{$btnDelete := (msg . "btn.delete")}}
                 {{with $field := field "diet.ID" .}}
-                    <input type="hidden" name="{{$field.Name}}" value="{{$field.Value}}">
+                    <a href="{{url "Diets.Delete" $field.Value}}" class="btn btn-danger center">{{$btnDelete}}</a>
                 {{end}}
-                <button id="save-button" class="btn btn-primary">Delete</button>
             </form>
         </div>
     </div>
