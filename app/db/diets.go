@@ -3,6 +3,7 @@ package db
 import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"natka/app/models"
 )
@@ -16,7 +17,7 @@ func InsertDiet(diet models.Diet) (interface{}, error) {
 func GetDiets() ([]models.Diet, error) {
 	var diets []models.Diet
 
-	err := getAll(dietsCollection, bson.D{}, &diets)
+	err := getAll(dietsCollection, bson.D{}, &options.FindOptions{Sort: bson.D{{Key: "_id", Value: -1}}}, &diets)
 	if err != nil {
 		return nil, err
 	}
@@ -50,5 +51,5 @@ func EditDiet(diet models.Diet) error {
 }
 
 func DeleteDiet(id *primitive.ObjectID) error {
-	return delete(dietsCollection, bson.D{{"_id", &id}})
+	return remove(dietsCollection, bson.D{{"_id", &id}})
 }

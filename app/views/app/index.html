@@ -72,6 +72,28 @@
 </div>
 <div class="container">
     <div class="row justify-content-center">
+        <h1>{{msg . "app.last.articles"}}</h1>
+    </div>
+    <div class="row justify-content-center">
+        {{$btnShow := msg . "btn.show"}}
+        {{range .lastArticles}}
+            <div class="col-xl-4 diet-box">
+                <div class="card h-100">
+                    <div class="zoom-wrapper">
+                        <img class="card-img-top zoom" src="data:image/jpg;base64, {{.Thumbnail.Data}}" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{.Article.Name}}</h5>
+                        <p class="card-text">{{.Article.Description}}</p>
+                        <a href="{{url "Articles.Show" .Article.ID}}" class="btn btn-primary">{{$btnShow}}</a>
+                    </div>
+                </div>
+            </div>
+        {{end}}
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
         <h1>Proponowane diety</h1>
     </div>
     <div class="row justify-content-center">

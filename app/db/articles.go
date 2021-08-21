@@ -3,10 +3,17 @@ package db
 import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
+
 	"natka/app/models"
 )
 
 const articlesCollection = "articles"
+
+type ArticleWithThumbnail struct {
+	Article   models.Article
+	Thumbnail models.Image
+}
 
 func InsertArticle(article models.Article) (interface{}, error) {
 	return insert(articlesCollection, article)
@@ -25,10 +32,35 @@ func GetArticle(id *primitive.ObjectID) (*models.Article, error) {
 
 func GetArticles() ([]models.Article, error) {
 	var articles []models.Article
+	err := getAll(articlesCollection, bson.D{}, &options.FindOptions{Sort: bson.D{{Key: "_id", Value: -1}}}, &articles)
 
-	err := getAll(articlesCollection, bson.D{}, &articles)
 	if err != nil {
 		return nil, err
+	}
+
+	return articles, nil
+}
+
+func GetLastArticles() ([]ArticleWithThumbnail, error) {
+	var rawArticles []models.Article
+	limit := int64(3)
+	err := getAll(articlesCollection, bson.D{}, &options.FindOptions{
+		Sort:  bson.D{{Key: "_id", Value: -1}},
+		Limit: &limit,
+	}, &rawArticles)
+	if err != nil {
+		return nil, err
+	}
+	var articles []ArticleWithThumbnail
+	for _, article := range rawArticles {
+		thumbnail, err := GetImage(article.Thumbnail)
+		if err != nil {
+			return nil, err
+		}
+		articles = append(articles, ArticleWithThumbnail{
+			Article:   article,
+			Thumbnail: thumbnail,
+		})
 	}
 
 	return articles, nil

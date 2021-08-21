@@ -32,9 +32,11 @@ func (c App) Index() revel.Result {
 
 	diets, _ := db.GetDiets()
 
+	lastArticles, _ := db.GetLastArticles()
+
 	carousel, _ := db.GetImagesByType(carousel)
 
-	return c.Render(siteTitle, user, instaPosts, diets, carousel)
+	return c.Render(siteTitle, user, instaPosts, diets, carousel, lastArticles)
 }
 
 func (c App) AddCarousel() revel.Result {

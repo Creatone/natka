@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -84,15 +83,13 @@ func get(collectionName string, filter interface{}, document interface{}) error 
 	return nil
 }
 
-func getAll(collectionName string, filter interface{}, document interface{}) error {
+func getAll(collectionName string, filter interface{}, opts *options.FindOptions, document interface{}) error {
 	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
 
 	db := client.Database(databaseName)
 	col := db.Collection(collectionName)
 
-	result, err := col.Find(ctx, filter, &options.FindOptions{
-		Sort: bson.D{{Key: "_id", Value: -1}},
-	})
+	result, err := col.Find(ctx, filter, opts)
 	if err != nil {
 		return err
 	}
@@ -105,7 +102,7 @@ func getAll(collectionName string, filter interface{}, document interface{}) err
 	return nil
 }
 
-func delete(collectionName string, filter interface{}) error {
+func remove(collectionName string, filter interface{}) error {
 	ctx, _ := context.WithTimeout(context.Background(), connectionTimeout)
 
 	db := client.Database(databaseName)

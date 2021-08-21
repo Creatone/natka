@@ -32,7 +32,7 @@ func GetImage(id string) (models.Image, error) {
 func GetImagesByType(passedType string) ([]models.Image, error) {
 	var images []models.Image
 
-	err := getAll(imagesCollection, bson.D{{"type", passedType}}, &images)
+	err := getAll(imagesCollection, bson.D{{"type", passedType}}, nil, &images)
 	if err != nil {
 		return images, err
 	}
@@ -57,5 +57,5 @@ func DeleteImage(id string) error {
 		return err
 	}
 
-	return delete(imagesCollection, bson.D{{"_id", &objectID}})
+	return remove(imagesCollection, bson.D{{"_id", &objectID}})
 }
