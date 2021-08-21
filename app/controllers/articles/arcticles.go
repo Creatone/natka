@@ -25,27 +25,9 @@ type Articles struct {
 func (c *Articles) Articles() revel.Result {
 	_ = utils.IsConnected(c.Session)
 
-	rawArticles, err := db.GetArticles()
+	articles, err := db.GetArticles()
 	if err != nil {
 		return c.RenderError(err)
-	}
-
-	articles := map[string]struct {
-		Article   models.Article
-		Thumbnail models.Image
-	}{}
-
-	for _, article := range rawArticles {
-		thumbnail, err := db.GetImage(article.Thumbnail)
-		if err != nil {
-			c.Flash.Error(err.Error())
-			return c.Redirect(routes.App.Index())
-		}
-
-		articles[article.ID] = struct {
-			Article   models.Article
-			Thumbnail models.Image
-		}{Article: article, Thumbnail: thumbnail}
 	}
 
 	return c.Render(articles)

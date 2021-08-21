@@ -30,12 +30,23 @@ func GetArticle(id *primitive.ObjectID) (*models.Article, error) {
 	return &article, nil
 }
 
-func GetArticles() ([]models.Article, error) {
-	var articles []models.Article
-	err := getAll(articlesCollection, bson.D{}, &options.FindOptions{Sort: bson.D{{Key: "_id", Value: -1}}}, &articles)
-
+func GetArticles() ([]ArticleWithThumbnail, error) {
+	var rawArticles []models.Article
+	err := getAll(articlesCollection, bson.D{}, &options.FindOptions{Sort: bson.D{{Key: "_id", Value: -1}}}, &rawArticles)
 	if err != nil {
 		return nil, err
+	}
+
+	var articles []ArticleWithThumbnail
+	for _, article := range rawArticles {
+		thumbnail, err := GetImage(article.Thumbnail)
+		if err != nil {
+			return nil, err
+		}
+		articles = append(articles, ArticleWithThumbnail{
+			Article:   article,
+			Thumbnail: thumbnail,
+		})
 	}
 
 	return articles, nil
