@@ -48,7 +48,7 @@ func (c *Diets) Delete(id string) revel.Result {
 			c.Flash.Error(err.Error())
 			return c.Redirect(routes.Shop.Index())
 		}
-		// TODO: Success message.
+		c.Flash.Success(c.Message("basket.diet.remove"))
 		return c.Redirect(routes.Shop.Index())
 	}
 
