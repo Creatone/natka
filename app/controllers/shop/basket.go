@@ -16,6 +16,10 @@ func (c *Shop) ShowBasket() revel.Result {
 	var basket models.Basket
 	_, _ = c.Session.GetInto("basket", &basket, true)
 
+	if len(basket.Diets) == 0 {
+		return c.Redirect(routes.Shop.Index())
+	}
+
 	return c.Render(basket)
 }
 
