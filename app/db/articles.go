@@ -30,6 +30,23 @@ func GetArticle(id *primitive.ObjectID) (*models.Article, error) {
 	return &article, nil
 }
 
+func GetArticleWithThumbnail(id *primitive.ObjectID) (*ArticleWithThumbnail, error) {
+	rawArticle, err := GetArticle(id)
+	if err != nil {
+		return nil, err
+	}
+
+	thumbnail, err := GetImage(rawArticle.Thumbnail)
+	if err != nil {
+		return nil, err
+	}
+
+	return &ArticleWithThumbnail{
+		Article:   *rawArticle,
+		Thumbnail: thumbnail,
+	}, nil
+}
+
 func GetArticles() ([]ArticleWithThumbnail, error) {
 	var rawArticles []models.Article
 	err := getAll(articlesCollection, bson.D{}, &options.FindOptions{Sort: bson.D{{Key: "_id", Value: -1}}}, &rawArticles)

@@ -3,8 +3,13 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-xl-12">
-            <h1>{{.article.Name}}</h1>
-            {{raw .article.Text}}
+            <div class="row">
+                <div class="col-12">
+                    <img src="data:image/jpg;base64, {{.article.Thumbnail.Data}}" class="img-article">
+                    <h3>{{.article.Article.Name}}</h3>
+                    {{raw .article.Article.Text}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
